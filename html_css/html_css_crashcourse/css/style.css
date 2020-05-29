@@ -1,0 +1,77 @@
+
+/* attribute selector  */
+input[type=text]{
+  border-color: red;
+}
+input[type=password]{
+  border-color: green;
+}
+input[type=submit]{
+  background-color: blue;
+  color: white;
+}
+
+/* pseudoclass selector  */
+input[type=submit]:hover{
+  background-color: green;
+  color: white;
+}
+
+/* pseudoelement selector  */
+a::before{
+  content: "before content: ";
+  font-weight: bold;
+}
+a::after{
+  content: ": after content";
+  font-weight: bold;
+}
+p::selection{
+  background-color: yellow;
+  color: red;
+}
+
+/* media query  */
+@media print {
+  .screen-only{
+    display: none;
+  }
+}
+@media (min-width: 550px) {
+  h1::before{
+    content: "Welcome to my webpage!"
+  }
+}
+@media (max-width: 549px) {
+  h1::before{
+    content: "Welcome!"
+  }
+}
+
+/* flex  */
+.container{
+  display: flex;
+  flex-wrap: wrap;
+}
+.container>div{
+  background-color: springgreen;
+  margin: 20px;
+  padding: 20px;
+  width: 200px;
+}
+
+/* Grid */
+.grid{
+  display: grid;
+  background-color: green;
+  padding: 20px;
+  grid-column-gap: 20px;
+  grid-row-gap: 10px;
+  grid-template-columns: 200px auto auto;
+}
+.grid-item{
+  background-color: white;
+  text-align: center;
+  font-size: 20px;
+  padding: 20px;
+}

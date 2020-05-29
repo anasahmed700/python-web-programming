@@ -1,0 +1,52 @@
+// creating variables for properties
+$list-color: green;
+$heading-color: royalblue;
+$ul-font: 14px;
+$ol-font: 18px;
+
+h1{
+  color: $heading-color;
+}
+ul{
+  color: $list-color;
+  font-size: $ul-font;
+}
+ol{
+  color: $list-color;
+  font-size: $ol-font;
+}
+// nesting css properties
+div{
+  font-size: 18px;
+  p{
+    color: coral;
+  }
+  ul{
+    color: violet;
+  }
+}
+
+// inheritance in sass
+%message {
+  font-family: sans-serif;
+  font-size: 18px;
+  font-weight: bold;
+  border: 1px solid black;
+  padding: 20px;
+  margin: 20px;
+}
+
+.success{
+  @extend %message;
+  background-color: green;
+}
+.warning{
+  @extend %message;
+  background-color: orange;
+}
+.error{
+  @extend %message;
+  background-color: red;
+}
+// run these commands: sass variables.scss variables.css 
+//(or to automate use) sass --watch variables.scss:variables.css
