@@ -1,0 +1,24 @@
+<!-- inheritanc -->
+{%extends "layout.html"%}
+
+{%block heading%}
+<h1>Names</h1>
+{%endblock%}
+
+{%block body%}
+<!-- loop  -->
+<ul>
+    {% for name in names %}
+    <li>{{ name }}</li>
+    {%endfor%}
+</ul>
+
+<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nobis tempore obcaecati voluptatem. 
+    Reiciendis, ut totam ipsam, numquam deleniti deserunt non unde, illo eos enim ipsum commodi modi 
+    earum hic sit.Lorem ipsum dolor sit amet consectetur adipisicing elit. Nobis tempore obcaecati voluptatem. 
+    Reiciendis, ut totam ipsam, numquam deleniti deserunt non unde, illo eos enim ipsum commodi modi earum hic 
+    sit.</p>
+
+<!-- link to another page  -->
+<a href="{{ url_for('more') }}">See more...</a>
+{%endblock%}

@@ -1,0 +1,12 @@
+{%extends 'layout.html'%}
+
+{%block heading%}
+First Page 
+{%endblock%}
+
+{%block body%}
+<form action="{{ url_for('myform_fn')}}" method="post">
+    <input type="text" name="somename" placeholder="Enter your name">
+    <button type="submit">submit</button>
+</form>
+{%endblock%}
