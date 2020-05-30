@@ -13,5 +13,6 @@ def main():
             {"origin": origin, "destination": destination, "duration": duration})
         print(f"Added flight from {origin} to {destination} lasting {duration} minutes.")
     db.commit()
+
 if __name__ == "__main__":
     main()
