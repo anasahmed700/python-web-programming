@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <!-- <script src="api.js"></script> -->
+</head>
+<body>
+    
+
+    <h1>GitHub APIs</h1>
+    <button id='btnRepos'>search repos</button>
+    <button id='btnCommits'>search commits</button>
+    <button id='btnIssues'>search issues</button>
+    <button id='btnIssuesPvt'>search private issues</button>
+
+    <div id="divResult"></div>
+
+    <a href="https://github.com/login/oauth/authorize?client_id=d64f43d92a656f2172bc">Register to github app</a>
+    <script>
+        const divResult = document.getElementById('divResult')
+        const btnRepos = document.getElementById('btnRepos')
+        const btnCommits = document.getElementById('btnCommits')
+        const btnIssues = document.getElementById('btnIssues')
+        const btnIssuesPvt = document.getElementById('btnIssuesPvt')
+        
+        btnRepos.addEventListener('click', getRepos)
+        btnCommits.addEventListener('click', e => getCommits())
+        btnIssues.addEventListener('click', getIssues)
+        btnIssuesPvt.addEventListener('click', getIssuesPvt)
+
+        async function getRepos(){
+            //clear();
+            // repos that has more than 100000 stars
+            const url = "https://api.github.com/search/repositories?q=stars:>100000"
+            const response = await fetch(url)
+            const result = await response.json()
+            console.log(result.items)
+
+            result.items.forEach(i => {
+                
+                anchor = document.createElement('a')
+                anchor.href = i.html_url
+                anchor.textContent = i.full_name;
+                divResult.appendChild(anchor)
+                divResult.appendChild(document.createElement('br'))
+
+            })
+
+        }
+        async function getCommits(){
+            //clear();
+
+            let search_text = 'ORM' // commit api requires param one
+            const url = `https://api.github.com/search/commits?q=${search_text} repo:anasahmed700/python-web-programming`
+            const headers = {
+                "Accept": "application/vnd.github.cloak-preview"
+            }
+            const response = await fetch(url, {
+                "method": "GET",
+                "headers": headers // passing header
+            })
+            const result = await response.json()
+            console.log(result.items)
+
+            result.items.forEach(i => {
+                img = document.createElement('img')
+                img.src = i.author.avatar_url
+                img.style.width = '32px'
+                img.style.height = '32px'
+                anchor = document.createElement('a')
+                anchor.href = i.html_url
+                anchor.textContent = i.commit.message;
+
+                divResult.appendChild(img)
+                divResult.appendChild(anchor)
+                divResult.appendChild(document.createElement('br'))
+
+            })
+
+        }
+        async function getIssues(){
+            //clear();
+
+            //const url = "https://api.github.com/search/issues?q=author:raisedadead repo:freecodecamp/freecodecamp type:issue"
+            const url = "https://api.github.com/search/issues?q=author:anasahmed700 assignee:anasahmed700"
+            const response = await fetch(url)
+            const result = await response.json()
+            console.log(result.items)
+
+            result.items.forEach(i => {
+                anchor = document.createElement('a')
+                anchor.href = i.html_url
+                anchor.textContent = i.title;
+                divResult.appendChild(anchor)
+                divResult.appendChild(document.createElement('br'))
+
+            })
+
+        }
+        async function getIssuesPvt(){
+            //clear();
+            //const username = 'anasahmed700'
+            //const password = 'my actual password' // insecure way
+            const url = "https://api.github.com/search/issues?q=repo:anasahmed700/my-private-code type:issue"
+            // reverseable header
+            /*const header = {
+                'Authorization' : 'Basic '+btoa(username + ':' + password) // btoa base64 encoding
+            }*/
+            // more secure header
+            const header = {
+                'Authorization' : 'Token bf98a71b4604d1577e2af0ff60ba4133a384df0d' // btoa base64 encoding
+            }
+            const response = await fetch(url, {
+                'method' : 'GET',
+                'headers' : header
+            })
+            const result = await response.json()
+            console.log(result.items)
+
+            result.items.forEach(i => {
+                anchor = document.createElement('a')
+                anchor.href = i.html_url
+                anchor.textContent = i.title;
+                divResult.appendChild(anchor)
+                divResult.appendChild(document.createElement('br'))
+
+            })
+
+        }
+        function clear(){
+            while(divResult.firstChild) 
+                divResult.remove(divResult.firstChild)
+        }
+    </script>
+</body>
+</html>

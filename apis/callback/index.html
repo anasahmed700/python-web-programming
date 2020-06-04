@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <button id='btnIssuesAuth'>search auth issues</button>
+
+
+    <div id="divResult"></div>
+
+    <script>
+        const btnIssuesAuth = document.getElementById('btnIssuesAuth')
+        btnIssuesAuth.addEventListener('click', getIssuesAuth)
+
+        async function getIssuesPvt(){
+            //clear();
+            //const username = 'anasahmed700'
+            //const password = 'my actual password' // insecure way
+            const url = "https://api.github.com/search/issues?q=repo:anasahmed700/my-private-code type:issue"
+            // reverseable header
+            /*const header = {
+                'Authorization' : 'Basic '+btoa(username + ':' + password) // btoa base64 encoding
+            }*/
+            // more secure header
+            const header = {
+                'Authorization' : 'Token bf98a71b4604d1577e2af0ff60ba4133a384df0d' // btoa base64 encoding
+            }
+            const response = await fetch(url, {
+                'method' : 'GET',
+                'headers' : header
+            })
+            const result = await response.json()
+            console.log(result.items)
+
+            result.items.forEach(i => {
+                anchor = document.createElement('a')
+                anchor.href = i.html_url
+                anchor.textContent = i.title;
+                divResult.appendChild(anchor)
+                divResult.appendChild(document.createElement('br'))
+
+            })
+
+        }
+    </script>
+</body>
+</html>
